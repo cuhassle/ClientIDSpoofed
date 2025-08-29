@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "clientid",
+  "version": "${version}",
+  "name": "ClientID",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/clientid/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.novinitymc.clientidClient.client.ClientidClientClient"
+    ],
+    "main": [
+      "com.novinitymc.clientidClient.ClientidClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  },
+  "mixins": [
+    "clientidClient.mixins.json"
+  ]
+}

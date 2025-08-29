@@ -9,6 +9,7 @@
 out/
 build/
 run/
+.gradle/
 
 # Compiled class file
 *.class
