@@ -1,0 +1,11 @@
+name: ClientID
+version: '1.0'
+main: com.novinitymc.clientIDServer.ClientIDServer
+api-version: '1.21'
+load: STARTUP
+authors: [ Novinity ]
+prefix: CLIENTID
+
+commands:
+  clientid:
+    permission: op
