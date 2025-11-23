@@ -11,10 +11,10 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "com.novinitymc.clientidClient.client.ClientidClientClient"
+      "com.novinitygames.clientidClient.client.ClientidClientClient"
     ],
     "main": [
-      "com.novinitymc.clientidClient.ClientidClient"
+      "com.novinitygames.clientidClient.ClientidClient"
     ]
   },
   "depends": {

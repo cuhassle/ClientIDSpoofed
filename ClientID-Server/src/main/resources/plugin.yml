@@ -1,6 +1,6 @@
 name: ClientID
 version: '1.0'
-main: com.novinitymc.clientIDServer.ClientIDServer
+main: com.novinitygames.clientIDServer.ClientIDServer
 api-version: '1.21'
 load: STARTUP
 authors: [ Novinity ]

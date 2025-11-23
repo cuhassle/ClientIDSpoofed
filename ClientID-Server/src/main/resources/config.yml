@@ -13,7 +13,7 @@ keywordBans:
 blacklist:
   - wurst
 
-# Any mod IDs in here bypass the keywordBans and blackist.
+# Any mod IDs in here bypass the keywordBans and blacklist.
 whitelist:
   - legacy-freecam
 
