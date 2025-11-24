@@ -24,7 +24,7 @@ public class ClientidClientClient implements ClientModInitializer {
             isConnectedToServer = true;
 
             // Initial installation confirmation
-            ModCheckC2SPayload payload = new ModCheckC2SPayload(MinecraftClient.getInstance().getGameProfile().getId().toString());
+            ModCheckC2SPayload payload = new ModCheckC2SPayload(MinecraftClient.getInstance().getGameProfile().id().toString());
             ClientPlayNetworking.send(payload);
 
             // Mods
