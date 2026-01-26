@@ -4,9 +4,11 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import com.novinitygames.clientIDServer.ClientIDServer;
 import com.novinitygames.clientIDServer.utils.CheckUtils;
+import com.novinitygames.clientIDServer.utils.ReadHelpers;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -17,7 +19,11 @@ public class ModListPacketC2S {
         }
 
         ByteArrayDataInput in = ByteStreams.newDataInput(message);
-        String s = in.readLine();
+
+        int length = ReadHelpers.readVarInt(in);
+        byte[] bytes = new byte[length];
+        in.readFully(bytes);
+        String s = new String(bytes, StandardCharsets.UTF_8);
 
         String[] mods = s.split(",");
         ClientIDServer.getInstance().installedMods.put(player, Arrays.stream(mods).toList());

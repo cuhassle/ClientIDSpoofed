@@ -3,9 +3,11 @@ package com.novinitygames.clientIDServer.packet;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import com.novinitygames.clientIDServer.ClientIDServer;
+import com.novinitygames.clientIDServer.utils.ReadHelpers;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -17,7 +19,11 @@ public class PackListPacketC2S {
         }
 
         ByteArrayDataInput in = ByteStreams.newDataInput(message);
-        String s = in.readLine();
+
+        int length = ReadHelpers.readVarInt(in);
+        byte[] bytes = new byte[length];
+        in.readFully(bytes);
+        String s = new String(bytes, StandardCharsets.UTF_8);
 
         String[] packs = s.split(",");
         ClientIDServer.getInstance().enabledPacks.put(player, Arrays.stream(packs).toList());
