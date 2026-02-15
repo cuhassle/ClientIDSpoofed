@@ -40,9 +40,10 @@ public class PlayerConnectionListeners implements Listener {
                     public void run() {
                         if (!ClientIDServer.getInstance().modConfirmation.containsKey(player)
                                 || !ClientIDServer.getInstance().enabledPacks.containsKey(player)
-                                || !ClientIDServer.getInstance().installedMods.containsKey(player)) {
+                                || !ClientIDServer.getInstance().installedMods.containsKey(player)
+                                || !ClientIDServer.getInstance().versionConfirmed.containsKey(player)) {
                             ClientIDServer.getInstance().getLogger().warning("Player " + player.getName() + " failed to respond in a timely fashion.");
-                            player.kickPlayer(ChatColor.RED + "Failed ClientID check.\nThis happened because of one of the following reasons:\n\n- You don't have the ClientID mod installed\n- Your latency was too high to callback in a timely fashion\n\nIf this is believed to be an error, please contact the server owner.");
+                            player.kickPlayer(ChatColor.RED + "Failed ClientID check.\nThis happened because of one of the following reasons:\n\n- You don't have the ClientID mod installed\n- Your latency was too high to callback in a timely fashion\n- Your version of ClientID is not supported by the server.\n\nIf this is believed to be an error, please contact the server owner.");
                         }
                     }
                 }, 5*20L);
@@ -54,7 +55,8 @@ public class PlayerConnectionListeners implements Listener {
                     public void run() {
                         if (ClientIDServer.getInstance().modConfirmation.containsKey(player)
                                 && ClientIDServer.getInstance().enabledPacks.containsKey(player)
-                                && ClientIDServer.getInstance().installedMods.containsKey(player)) {
+                                && ClientIDServer.getInstance().installedMods.containsKey(player)
+                                && ClientIDServer.getInstance().versionConfirmed.containsKey(player)) {
                             if (!ClientIDServer.getInstance().confirmedPlayers.contains(player)) {
                                 ClientIDServer.getInstance().confirmedPlayers.add(player);
                             }
@@ -78,6 +80,7 @@ public class PlayerConnectionListeners implements Listener {
         ClientIDServer.getInstance().modConfirmation.remove(player);
         ClientIDServer.getInstance().installedMods.remove(player);
         ClientIDServer.getInstance().enabledPacks.remove(player);
+        ClientIDServer.getInstance().versionConfirmed.remove(player);
         ClientIDServer.getInstance().confirmedPlayers.remove(player);
     }
 }

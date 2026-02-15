@@ -43,4 +43,8 @@ public class Version implements Comparable<Version> {
     public int getPatch() {
         return patch;
     }
+
+    public String toString() {
+        return String.format("%d.%d.%d", major, minor, patch);
+    }
 }

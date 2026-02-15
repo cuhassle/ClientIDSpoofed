@@ -3,10 +3,12 @@ package com.novinitygames.clientIDServer;
 import com.novinitygames.clientIDServer.commands.CommandManager;
 import com.novinitygames.clientIDServer.listeners.PlayerActionListeners;
 import com.novinitygames.clientIDServer.listeners.PlayerConnectionListeners;
+import com.novinitygames.clientIDServer.packet.ClientVersionPacketC2S;
 import com.novinitygames.clientIDServer.packet.ModCheckPacketC2S;
 import com.novinitygames.clientIDServer.packet.ModListPacketC2S;
 import com.novinitygames.clientIDServer.packet.PackListPacketC2S;
 import com.novinitygames.clientIDServer.utils.UpdateChecker;
+import com.novinitygames.clientIDServer.utils.Version;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -29,7 +31,10 @@ public final class ClientIDServer extends JavaPlugin {
     public HashMap<Player, Boolean> modConfirmation = new HashMap<>();
     public HashMap<Player, List<String>> installedMods = new HashMap<>();
     public HashMap<Player, List<String>> enabledPacks = new HashMap<>();
+    public HashMap<Player, Boolean> versionConfirmed = new HashMap<>();
     public ArrayList<Player> confirmedPlayers = new ArrayList<>();
+
+    public final Version clientMinimumVersion = new Version(1, 0, 1);
 
     @Override
     public void onEnable() {
@@ -47,6 +52,9 @@ public final class ClientIDServer extends JavaPlugin {
         getServer().getMessenger().registerIncomingPluginChannel(this, NAMESPACE + ":modcheck", ModCheckPacketC2S::onModCheckReceived);
         getServer().getMessenger().registerIncomingPluginChannel(this, NAMESPACE + ":modlist", ModListPacketC2S::onModListPacket);
         getServer().getMessenger().registerIncomingPluginChannel(this, NAMESPACE + ":packlist", PackListPacketC2S::onPackListPacket);
+        getServer().getMessenger().registerIncomingPluginChannel(this, NAMESPACE + ":clientversion", ClientVersionPacketC2S::onModListPacket);
+
+        getServer().getMessenger().registerOutgoingPluginChannel(this, NAMESPACE + ":charts");
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.kickPlayer(ChatColor.RED + "Server reload, please rejoin.");
