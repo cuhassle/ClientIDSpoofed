@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "clientid",
+  "version": "${version}",
+  "name": "ClientID",
+  "description": "Sends your mod and resource pack list to compatible servers",
+  "authors": ["Novinity"],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/clientid/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.novinitygames.clientidClient.client.ClientidClientClient"
+    ],
+    "main": [
+      "com.novinitygames.clientidClient.ClientidClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  },
+  "mixins": [
+    "clientidClient.mixins.json"
+  ]
+}
