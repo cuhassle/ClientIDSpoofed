@@ -1,0 +1,21 @@
+# Should any joining player be required to have the companion mod installed? (RECOMMENDED)
+requireMod: true
+
+# Any keywords in here will be automatically detected if the name of a player's installed mod contains one of them.
+# For example, if "xray" is in the list, then "CoolXray" will also be banned.
+keywordBans:
+  - xray
+  - x-ray
+  - freecam
+
+# Any mod names here will be banned if their ID matches a mod that the player has installed EXACTLY (not case sensitive)
+# "wurst" and "wUrst" would both be banned if only one was in the list.
+blacklist:
+  - wurst
+
+# Any mod IDs in here bypass the keywordBans and blacklist.
+whitelist:
+  - legacy-freecam
+
+# Put the usernames of players who you want to be able to bypass restrictions here.
+playerBypass:
