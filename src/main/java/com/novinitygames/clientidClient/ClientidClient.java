@@ -3,6 +3,7 @@ package com.novinitygames.clientidClient;
 import com.novinitygames.clientidClient.client.records.ModCheckC2SPayload;
 import com.novinitygames.clientidClient.client.records.ModListC2SPayload;
 import com.novinitygames.clientidClient.client.records.PackListC2SPayload;
+import com.novinitygames.clientidClient.client.records.VersionC2SPayload;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 
@@ -14,5 +15,8 @@ public class ClientidClient implements ModInitializer {
         PayloadTypeRegistry.playC2S().register(ModCheckC2SPayload.ID, ModCheckC2SPayload.CODEC);
         PayloadTypeRegistry.playC2S().register(ModListC2SPayload.ID, ModListC2SPayload.CODEC);
         PayloadTypeRegistry.playC2S().register(PackListC2SPayload.ID, PackListC2SPayload.CODEC);
+        PayloadTypeRegistry.playC2S().register(VersionC2SPayload.ID, VersionC2SPayload.CODEC);
+
+        PayloadTypeRegistry.playS2C().register()
     }
 }

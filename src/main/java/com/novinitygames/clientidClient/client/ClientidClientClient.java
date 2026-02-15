@@ -3,11 +3,13 @@ package com.novinitygames.clientidClient.client;
 import com.novinitygames.clientidClient.client.records.ModCheckC2SPayload;
 import com.novinitygames.clientidClient.client.records.ModListC2SPayload;
 import com.novinitygames.clientidClient.client.records.PackListC2SPayload;
+import com.novinitygames.clientidClient.client.records.VersionC2SPayload;
 import com.novinitygames.clientidClient.client.util.ListerUtil;
 import com.novinitygames.clientidClient.client.watcher.ResourcePackWatcher;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 
 import java.util.List;
@@ -40,6 +42,13 @@ public class ClientidClientClient implements ClientModInitializer {
 
             PackListC2SPayload payload3 = new PackListC2SPayload(enabledPacks);
             ClientPlayNetworking.send(payload3);
+
+            // Version
+            FabricLoader.getInstance().getModContainer("clientid").ifPresent(modContainer -> {
+                String version = modContainer.getMetadata().getVersion().getFriendlyString();
+                VersionC2SPayload payload4 = new VersionC2SPayload(version);
+                ClientPlayNetworking.send(payload4);
+            });
         });
 
         ClientPlayConnectionEvents.DISCONNECT.register((handler, sender) -> {
