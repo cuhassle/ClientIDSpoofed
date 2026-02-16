@@ -25,7 +25,20 @@ public class ModListPacketC2S {
         in.readFully(bytes);
         String s = new String(bytes, StandardCharsets.UTF_8);
 
+        if (s == null || s.isEmpty()) return;
+
         String[] mods = s.split(",");
+
+        if (mods.length < 5) return;
+        boolean f = false;
+        for (String mod : mods) {
+            if (mod.equals("clientid")) {
+                f = true;
+                break;
+            }
+        }
+        if (!f) return;
+
         ClientIDServer.getInstance().installedMods.put(player, Arrays.stream(mods).toList());
 
         ArrayList<String> bannedMods = CheckUtils.CheckIllicitMods(player);
