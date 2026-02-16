@@ -7,6 +7,7 @@ import com.novinitygames.clientIDServer.packet.ClientVersionPacketC2S;
 import com.novinitygames.clientIDServer.packet.ModCheckPacketC2S;
 import com.novinitygames.clientIDServer.packet.ModListPacketC2S;
 import com.novinitygames.clientIDServer.packet.PackListPacketC2S;
+import com.novinitygames.clientIDServer.utils.ConfigVerification;
 import com.novinitygames.clientIDServer.utils.UpdateChecker;
 import com.novinitygames.clientIDServer.utils.Version;
 import org.bukkit.Bukkit;
@@ -42,6 +43,7 @@ public final class ClientIDServer extends JavaPlugin {
 
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
+        ConfigVerification.VerifyConfig();
 
         getServer().getPluginCommand("clientid").setExecutor(new CommandManager());
         getServer().getPluginCommand("clientid").setTabCompleter(new CommandManager());
