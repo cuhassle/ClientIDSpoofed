@@ -1,9 +1,7 @@
 package com.novinitygames.clientidClient.client;
 
-import com.novinitygames.clientidClient.client.records.ModCheckC2SPayload;
-import com.novinitygames.clientidClient.client.records.ModListC2SPayload;
-import com.novinitygames.clientidClient.client.records.PackListC2SPayload;
-import com.novinitygames.clientidClient.client.records.VersionC2SPayload;
+import com.novinitygames.clientidClient.ClientidClient;
+import com.novinitygames.clientidClient.client.records.*;
 import com.novinitygames.clientidClient.client.util.ListerUtil;
 import com.novinitygames.clientidClient.client.watcher.ResourcePackWatcher;
 import net.fabricmc.api.ClientModInitializer;
@@ -11,6 +9,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.Identifier;
 
 import java.util.List;
 
@@ -18,6 +17,7 @@ public class ClientidClientClient implements ClientModInitializer {
     ResourcePackWatcher watcher;
 
     public static Boolean isConnectedToServer = false;
+    public static Boolean pieChartDisabled = false;
 
     @Override
     public void onInitializeClient() {
@@ -53,6 +53,11 @@ public class ClientidClientClient implements ClientModInitializer {
 
         ClientPlayConnectionEvents.DISCONNECT.register((handler, sender) -> {
             isConnectedToServer = false;
+            pieChartDisabled = false;
+        });
+
+        ClientPlayNetworking.registerGlobalReceiver(ChartsS2CPayload.ID, (payload, ctx) -> {
+            pieChartDisabled = payload.val();
         });
     }
 }
