@@ -19,3 +19,11 @@ whitelist:
 
 # Put the usernames of players who you want to be able to bypass restrictions here.
 playerBypass:
+  - User1
+  - User2
+
+# When true, playerBypass will force only players in the list to have the mod, acting as a blacklist rather than a whitelist
+reversePlayerBypass: false
+
+# Whether the pie chart should be disabled for players when they join
+disablePieChart: false

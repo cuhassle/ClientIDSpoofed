@@ -1,5 +1,7 @@
 package com.novinitygames.clientIDServer.listeners;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import com.novinitygames.clientIDServer.ClientIDServer;
 import com.novinitygames.clientIDServer.utils.GeyserUtils;
 import com.novinitygames.clientIDServer.utils.UpdateChecker;
@@ -27,7 +29,10 @@ public class PlayerConnectionListeners implements Listener {
         if (isGeyser) {
             ClientIDServer.getInstance().getLogger().info(event.getPlayer().getName() + " is a Bedrock player. Ignoring.");
         }
-        if (ClientIDServer.getInstance().getConfig().getStringList("playerBypass").contains(player.getName()) || isGeyser) {
+        if (
+                (ClientIDServer.getInstance().getConfig().getStringList("playerBypass").contains(player.getName()) && !ClientIDServer.getInstance().getConfig().getBoolean("reversePlayerBypass", false))
+                || (!ClientIDServer.getInstance().getConfig().getStringList("playerBypass").contains(player.getName()) && ClientIDServer.getInstance().getConfig().getBoolean("reversePlayerBypass", false))
+                        || isGeyser) {
             ClientIDServer.getInstance().confirmedPlayers.add(player);
             ClientIDServer.getInstance().modConfirmation.put(player, true);
             return;
@@ -59,6 +64,10 @@ public class PlayerConnectionListeners implements Listener {
                                 && ClientIDServer.getInstance().versionConfirmed.containsKey(player)) {
                             if (!ClientIDServer.getInstance().confirmedPlayers.contains(player)) {
                                 ClientIDServer.getInstance().confirmedPlayers.add(player);
+
+                                ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                                out.writeBoolean(ClientIDServer.getInstance().getConfig().getBoolean("disablePieChart", false));
+                                player.sendPluginMessage(ClientIDServer.getInstance(), ClientIDServer.NAMESPACE + ":charts", out.toByteArray());
                             }
                         }
                     }
