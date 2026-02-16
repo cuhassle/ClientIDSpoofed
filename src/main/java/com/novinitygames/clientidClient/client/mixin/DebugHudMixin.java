@@ -1,14 +1,11 @@
 package com.novinitygames.clientidClient.client.mixin;
 
-import com.novinitygames.clientidClient.ClientidClient;
 import com.novinitygames.clientidClient.client.ClientidClientClient;
 import net.minecraft.client.gui.hud.DebugHud;
-import net.minecraft.client.gui.hud.debug.chart.PieChart;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(DebugHud.class)
 public class DebugHudMixin {
