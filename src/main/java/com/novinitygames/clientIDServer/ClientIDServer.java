@@ -35,7 +35,7 @@ public final class ClientIDServer extends JavaPlugin {
     public HashMap<Player, Boolean> versionConfirmed = new HashMap<>();
     public ArrayList<Player> confirmedPlayers = new ArrayList<>();
 
-    public final Version clientMinimumVersion = new Version(1, 0, 1);
+    public final Version clientMinimumVersion = new Version(1, 1, 0);
 
     @Override
     public void onEnable() {
