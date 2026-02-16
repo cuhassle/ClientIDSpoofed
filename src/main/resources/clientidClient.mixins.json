@@ -3,7 +3,9 @@
   "minVersion": "0.8",
   "package": "com.novinitygames.clientidClient.client.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": [],
+  "mixins": [
+    "DebugHudMixin"
+  ],
   "client": [
   ],
   "server": [],
