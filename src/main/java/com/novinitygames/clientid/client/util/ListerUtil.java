@@ -1,4 +1,4 @@
-package com.novinitygames.clientidClient.client.util;
+package com.novinitygames.clientid.client.util;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;

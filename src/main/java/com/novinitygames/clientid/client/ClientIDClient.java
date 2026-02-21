@@ -1,19 +1,17 @@
-package com.novinitygames.clientidClient.client;
+package com.novinitygames.clientid.client;
 
-import com.novinitygames.clientidClient.ClientidClient;
-import com.novinitygames.clientidClient.client.records.*;
-import com.novinitygames.clientidClient.client.util.ListerUtil;
-import com.novinitygames.clientidClient.client.watcher.ResourcePackWatcher;
+import com.novinitygames.clientid.client.records.*;
+import com.novinitygames.clientid.client.util.ListerUtil;
+import com.novinitygames.clientid.client.watcher.ResourcePackWatcher;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.Identifier;
 
 import java.util.List;
 
-public class ClientidClientClient implements ClientModInitializer {
+public class ClientIDClient implements ClientModInitializer {
     ResourcePackWatcher watcher;
 
     public static Boolean isConnectedToServer = false;

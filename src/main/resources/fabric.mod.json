@@ -8,13 +8,13 @@
   "contact": {},
   "license": "All-Rights-Reserved",
   "icon": "assets/clientid/icon.png",
-  "environment": "client",
+  "environment": "*",
   "entrypoints": {
     "client": [
-      "com.novinitygames.clientidClient.client.ClientidClientClient"
+      "com.novinitygames.clientid.client.ClientIDClient"
     ],
     "main": [
-      "com.novinitygames.clientidClient.ClientidClient"
+      "com.novinitygames.clientid.ClientID"
     ]
   },
   "depends": {
@@ -23,6 +23,13 @@
     "minecraft": "${minecraft_version}"
   },
   "mixins": [
-    "clientidClient.mixins.json"
+    {
+      "config": "clientidClient.mixins.json",
+      "environment": "client"
+    },
+    {
+      "config": "clientidServer.mixins.json",
+      "environment": "server"
+    }
   ]
 }

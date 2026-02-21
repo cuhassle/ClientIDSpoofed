@@ -1,9 +1,9 @@
-package com.novinitygames.clientidClient.client.watcher;
+package com.novinitygames.clientid.client.watcher;
 
-import com.novinitygames.clientidClient.ClientidClient;
-import com.novinitygames.clientidClient.client.ClientidClientClient;
-import com.novinitygames.clientidClient.client.records.PackListC2SPayload;
-import com.novinitygames.clientidClient.client.util.ListerUtil;
+import com.novinitygames.clientid.ClientID;
+import com.novinitygames.clientid.client.ClientIDClient;
+import com.novinitygames.clientid.client.records.PackListC2SPayload;
+import com.novinitygames.clientid.client.util.ListerUtil;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResourcePackWatcher implements SimpleSynchronousResourceReloadListener {
-    private final Identifier id = Identifier.of(ClientidClient.MOD_ID, "resource_pack_watcher");
+    private final Identifier id = Identifier.of(ClientID.MOD_ID, "resource_pack_watcher");
     private List<String> lastEnabled = new ArrayList<>();
 
     public ResourcePackWatcher() {
@@ -47,7 +47,7 @@ public class ResourcePackWatcher implements SimpleSynchronousResourceReloadListe
         removed.removeAll(current);
 
         if (!added.isEmpty() || !removed.isEmpty()) {
-            if (ClientidClientClient.isConnectedToServer) {
+            if (ClientIDClient.isConnectedToServer) {
                 String enabledPacks = String.join(",", ListerUtil.getEnabledPacks());
                 PackListC2SPayload payload = new PackListC2SPayload(enabledPacks);
                 ClientPlayNetworking.send(payload);
