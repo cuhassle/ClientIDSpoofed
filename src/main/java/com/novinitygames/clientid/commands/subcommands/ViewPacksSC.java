@@ -1,7 +1,7 @@
-package com.novinitygames.clientIDServer.commands.subcommands;
+package com.novinitygames.clientid.commands.subcommands;
 
-import com.novinitygames.clientIDServer.ClientIDServer;
-import com.novinitygames.clientIDServer.commands.SubCommand;
+import com.novinitygames.clientid.ClientID;
+import com.novinitygames.clientid.commands.SubCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -42,7 +42,7 @@ public class ViewPacksSC extends SubCommand {
         }
 
         String s = ChatColor.GOLD + player.getName() + "'s pack list:\n" +
-                ChatColor.GREEN + String.join(", ", ClientIDServer.getInstance().enabledPacks.get(player));
+                ChatColor.GREEN + String.join(", ", ClientID.getInstance().enabledPacks.get(player));
         sender.sendMessage(s);
     }
 }

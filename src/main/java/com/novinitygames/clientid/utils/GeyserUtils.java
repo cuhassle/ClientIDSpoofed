@@ -1,6 +1,5 @@
-package com.novinitygames.clientIDServer.utils;
+package com.novinitygames.clientid.utils;
 
-import com.novinitygames.clientIDServer.ClientIDServer;
 import org.bukkit.entity.Player;
 import org.geysermc.geyser.api.GeyserApi;
 import org.geysermc.geyser.api.connection.GeyserConnection;

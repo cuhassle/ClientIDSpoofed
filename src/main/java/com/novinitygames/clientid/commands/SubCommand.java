@@ -1,4 +1,4 @@
-package com.novinitygames.clientIDServer.commands;
+package com.novinitygames.clientid.commands;
 
 
 import org.bukkit.command.CommandSender;

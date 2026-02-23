@@ -1,4 +1,4 @@
-package com.novinitygames.clientIDServer.utils;
+package com.novinitygames.clientid.utils;
 
 import java.util.Comparator;
 

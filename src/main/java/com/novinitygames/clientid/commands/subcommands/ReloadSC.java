@@ -1,15 +1,12 @@
-package com.novinitygames.clientIDServer.commands.subcommands;
+package com.novinitygames.clientid.commands.subcommands;
 
-import com.novinitygames.clientIDServer.ClientIDServer;
-import com.novinitygames.clientIDServer.commands.SubCommand;
-import com.novinitygames.clientIDServer.utils.CheckUtils;
-import com.novinitygames.clientIDServer.utils.ConfigVerification;
+import com.novinitygames.clientid.ClientID;
+import com.novinitygames.clientid.commands.SubCommand;
+import com.novinitygames.clientid.utils.ConfigVerification;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
 
 public class ReloadSC extends SubCommand {
     @Override
@@ -36,7 +33,7 @@ public class ReloadSC extends SubCommand {
     public void perform(CommandSender sender, String[] args) {
         ConfigVerification.VerifyConfig();
 //        ClientIDServer.getInstance().reloadConfig();
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', ClientIDServer.PREFIX + "&aReloaded config!"));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', ClientID.PREFIX + "&aReloaded config!"));
 
 //        if (ClientIDServer.getInstance().getConfig().getBoolean("requireMod", true)) {
 //            for (Player p : Bukkit.getOnlinePlayers()) {

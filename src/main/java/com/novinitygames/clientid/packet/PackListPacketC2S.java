@@ -1,9 +1,9 @@
-package com.novinitygames.clientIDServer.packet;
+package com.novinitygames.clientid.packet;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
-import com.novinitygames.clientIDServer.ClientIDServer;
-import com.novinitygames.clientIDServer.utils.ReadHelpers;
+import com.novinitygames.clientid.ClientID;
+import com.novinitygames.clientid.utils.ReadHelpers;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -14,7 +14,7 @@ import java.util.logging.Level;
 
 public class PackListPacketC2S {
     public static void onPackListPacket(String channel, Player player, byte[] message) {
-        if (!channel.equalsIgnoreCase(ClientIDServer.NAMESPACE + ":packlist")) {
+        if (!channel.equalsIgnoreCase(ClientID.NAMESPACE + ":packlist")) {
             return;
         }
 
@@ -26,28 +26,28 @@ public class PackListPacketC2S {
         String s = new String(bytes, StandardCharsets.UTF_8);
 
         String[] packs = s.split(",");
-        ClientIDServer.getInstance().enabledPacks.put(player, Arrays.stream(packs).toList());
+        ClientID.getInstance().enabledPacks.put(player, Arrays.stream(packs).toList());
 
         ArrayList<String> bannedPacks = new ArrayList<>();
 
         ArrayList<String> keywordBans = new ArrayList<>() {{
-            for (String s : ClientIDServer.getInstance().getConfig().getStringList("keywordBans")) {
+            for (String s : ClientID.getInstance().getConfig().getStringList("keywordBans")) {
                 add(s.toLowerCase());
             }
         }};
         ArrayList<String> blacklist = new ArrayList<>() {{
-            for (String s : ClientIDServer.getInstance().getConfig().getStringList("blacklist")) {
+            for (String s : ClientID.getInstance().getConfig().getStringList("blacklist")) {
                 add(s.toLowerCase());
             }
         }};
         ArrayList<String> whitelist = new ArrayList<>() {{
-            for (String s : ClientIDServer.getInstance().getConfig().getStringList("whitelist")) {
+            for (String s : ClientID.getInstance().getConfig().getStringList("whitelist")) {
                 add(s.toLowerCase());
             }
         }};
 
-        ClientIDServer.getInstance().getLogger().info(player.getName() + "'s Enabled Packs:");
-        for (String pack : ClientIDServer.getInstance().enabledPacks.get(player)) {
+        ClientID.getInstance().getLogger().info(player.getName() + "'s Enabled Packs:");
+        for (String pack : ClientID.getInstance().enabledPacks.get(player)) {
             String lowercase = pack.toLowerCase();
             boolean illicit = false;
             if (!whitelist.contains(lowercase)) {
@@ -63,9 +63,9 @@ public class PackListPacketC2S {
             }
             if (illicit) {
                 bannedPacks.add(lowercase);
-                ClientIDServer.getInstance().getLogger().log(Level.SEVERE, "- " + pack);
+                ClientID.getInstance().getLogger().log(Level.SEVERE, "- " + pack);
             } else {
-                ClientIDServer.getInstance().getLogger().info("- " + pack);
+                ClientID.getInstance().getLogger().info("- " + pack);
             }
         }
 
