@@ -1,10 +1,10 @@
-package com.novinitygames.clientIDServer.utils;
+package com.novinitygames.clientid.utils;
 
-import com.novinitygames.clientIDServer.ClientIDServer;
+import com.novinitygames.clientid.ClientID;
 
 public class ConfigVerification {
     public static void VerifyConfig() {
-        ClientIDServer plugin = ClientIDServer.getInstance();
+        ClientID plugin = ClientID.getInstance();
         if (plugin.getConfig().get("requireMod") == null) plugin.getConfig().set("requireMod", true);
         if (plugin.getConfig().get("keywordBans") == null) plugin.getConfig().set("keywordBans", new String[] {});
         if (plugin.getConfig().get("blacklist") == null) plugin.getConfig().set("blacklist", new String[] {});

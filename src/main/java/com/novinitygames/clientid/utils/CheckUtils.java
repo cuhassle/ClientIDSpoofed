@@ -1,6 +1,6 @@
-package com.novinitygames.clientIDServer.utils;
+package com.novinitygames.clientid.utils;
 
-import com.novinitygames.clientIDServer.ClientIDServer;
+import com.novinitygames.clientid.ClientID;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -11,21 +11,21 @@ public class CheckUtils {
         ArrayList<String> bannedMods = new ArrayList<>();
 
         ArrayList<String> keywordBans = new ArrayList<>() {{
-            for (String s : ClientIDServer.getInstance().getConfig().getStringList("keywordBans")) {
+            for (String s : ClientID.getInstance().getConfig().getStringList("keywordBans")) {
                 add(s.toLowerCase());
             }
         }};
         ArrayList<String> blacklist = new ArrayList<>() {{
-            for (String s : ClientIDServer.getInstance().getConfig().getStringList("blacklist")) {
+            for (String s : ClientID.getInstance().getConfig().getStringList("blacklist")) {
                 add(s.toLowerCase());
             }
         }};
         ArrayList<String> whitelist = new ArrayList<>() {{
-            for (String s : ClientIDServer.getInstance().getConfig().getStringList("whitelist")) {
+            for (String s : ClientID.getInstance().getConfig().getStringList("whitelist")) {
                 add(s.toLowerCase());
             }
         }};
-        for (String mod : ClientIDServer.getInstance().installedMods.get(player)) {
+        for (String mod : ClientID.getInstance().installedMods.get(player)) {
             String lowercase = mod.toLowerCase();
             boolean illicit = false;
             if (!whitelist.contains(lowercase)) {
@@ -41,9 +41,9 @@ public class CheckUtils {
             }
             if (illicit) {
                 bannedMods.add(lowercase);
-                ClientIDServer.getInstance().getLogger().log(Level.SEVERE, "- " + mod);
+                ClientID.getInstance().getLogger().log(Level.SEVERE, "- " + mod);
             } else {
-                ClientIDServer.getInstance().getLogger().info("- " + mod);
+                ClientID.getInstance().getLogger().info("- " + mod);
             }
         }
 

@@ -1,11 +1,11 @@
-package com.novinitygames.clientIDServer.commands;
+package com.novinitygames.clientid.commands;
 
 
-import com.novinitygames.clientIDServer.ClientIDServer;
-import com.novinitygames.clientIDServer.Properties;
-import com.novinitygames.clientIDServer.commands.subcommands.ReloadSC;
-import com.novinitygames.clientIDServer.commands.subcommands.ViewModsSC;
-import com.novinitygames.clientIDServer.commands.subcommands.ViewPacksSC;
+import com.novinitygames.clientid.ClientID;
+import com.novinitygames.clientid.Properties;
+import com.novinitygames.clientid.commands.subcommands.ReloadSC;
+import com.novinitygames.clientid.commands.subcommands.ViewModsSC;
+import com.novinitygames.clientid.commands.subcommands.ViewPacksSC;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -67,7 +67,7 @@ public class CommandManager implements TabCompleter, CommandExecutor {
                 }
             }
         } else if (args.length == 0) {
-            sender.sendMessage(ClientIDServer.PREFIX + ChatColor.translateAlternateColorCodes('&',
+            sender.sendMessage(ClientID.PREFIX + ChatColor.translateAlternateColorCodes('&',
                     "&aVersion " + Properties.getProperty("version")));
         }
 

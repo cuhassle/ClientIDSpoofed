@@ -1,15 +1,17 @@
-package com.novinitygames.clientIDServer;
+package com.novinitygames.clientid;
 
-import com.novinitygames.clientIDServer.commands.CommandManager;
-import com.novinitygames.clientIDServer.listeners.PlayerActionListeners;
-import com.novinitygames.clientIDServer.listeners.PlayerConnectionListeners;
-import com.novinitygames.clientIDServer.packet.ClientVersionPacketC2S;
-import com.novinitygames.clientIDServer.packet.ModCheckPacketC2S;
-import com.novinitygames.clientIDServer.packet.ModListPacketC2S;
-import com.novinitygames.clientIDServer.packet.PackListPacketC2S;
-import com.novinitygames.clientIDServer.utils.ConfigVerification;
-import com.novinitygames.clientIDServer.utils.UpdateChecker;
-import com.novinitygames.clientIDServer.utils.Version;
+import com.cjcrafter.foliascheduler.FoliaCompatibility;
+import com.cjcrafter.foliascheduler.ServerImplementation;
+import com.novinitygames.clientid.commands.CommandManager;
+import com.novinitygames.clientid.listeners.PlayerActionListeners;
+import com.novinitygames.clientid.listeners.PlayerConnectionListeners;
+import com.novinitygames.clientid.packet.ClientVersionPacketC2S;
+import com.novinitygames.clientid.packet.ModCheckPacketC2S;
+import com.novinitygames.clientid.packet.ModListPacketC2S;
+import com.novinitygames.clientid.packet.PackListPacketC2S;
+import com.novinitygames.clientid.utils.ConfigVerification;
+import com.novinitygames.clientid.utils.UpdateChecker;
+import com.novinitygames.clientid.utils.Version;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -19,12 +21,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public final class ClientIDServer extends JavaPlugin {
-    public static ClientIDServer getInstance() {
+public final class ClientID extends JavaPlugin {
+    public static ClientID getInstance() {
         return instance;
     }
 
-    private static ClientIDServer instance;
+    private static ClientID instance;
 
     public static final String NAMESPACE = "clientid";
     public static final String PREFIX = "&8[&c&lCLIENTID&8] &f";
@@ -37,9 +39,12 @@ public final class ClientIDServer extends JavaPlugin {
 
     public final Version clientMinimumVersion = new Version(1, 1, 0);
 
+    public ServerImplementation scheduler;
+
     @Override
     public void onEnable() {
         instance = this;
+        scheduler = new FoliaCompatibility(this).getServerImplementation();
 
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();

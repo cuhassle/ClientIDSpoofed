@@ -1,10 +1,10 @@
-package com.novinitygames.clientIDServer.packet;
+package com.novinitygames.clientid.packet;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
-import com.novinitygames.clientIDServer.ClientIDServer;
-import com.novinitygames.clientIDServer.utils.CheckUtils;
-import com.novinitygames.clientIDServer.utils.ReadHelpers;
+import com.novinitygames.clientid.ClientID;
+import com.novinitygames.clientid.utils.CheckUtils;
+import com.novinitygames.clientid.utils.ReadHelpers;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 public class ModListPacketC2S {
     public static void onModListPacket(String channel, Player player, byte[] message) {
-        if (!channel.equalsIgnoreCase(ClientIDServer.NAMESPACE + ":modlist")) {
+        if (!channel.equalsIgnoreCase(ClientID.NAMESPACE + ":modlist")) {
             return;
         }
 
@@ -39,7 +39,7 @@ public class ModListPacketC2S {
         }
         if (!f) return;
 
-        ClientIDServer.getInstance().installedMods.put(player, Arrays.stream(mods).toList());
+        ClientID.getInstance().installedMods.put(player, Arrays.stream(mods).toList());
 
         ArrayList<String> bannedMods = CheckUtils.CheckIllicitMods(player);
 
