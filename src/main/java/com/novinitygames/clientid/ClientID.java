@@ -12,6 +12,7 @@ import com.novinitygames.clientid.packet.PackListPacketC2S;
 import com.novinitygames.clientid.utils.ConfigVerification;
 import com.novinitygames.clientid.utils.UpdateChecker;
 import com.novinitygames.clientid.utils.Version;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -66,6 +67,9 @@ public final class ClientID extends JavaPlugin {
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.kickPlayer(ChatColor.RED + "Server reload, please rejoin.");
         }
+
+        int pluginId = 29723;
+        Metrics metrics = new Metrics(this, pluginId);
 
         UpdateChecker.checkForUpdates();
     }
