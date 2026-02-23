@@ -5,6 +5,7 @@ import com.novinitygames.clientid.ClientID;
 public class ConfigVerification {
     public static void VerifyConfig() {
         ClientID plugin = ClientID.getInstance();
+        plugin.reloadConfig();
         if (plugin.getConfig().get("requireMod") == null) plugin.getConfig().set("requireMod", true);
         if (plugin.getConfig().get("keywordBans") == null) plugin.getConfig().set("keywordBans", new String[] {});
         if (plugin.getConfig().get("blacklist") == null) plugin.getConfig().set("blacklist", new String[] {});
