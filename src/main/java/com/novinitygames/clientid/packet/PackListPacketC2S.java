@@ -3,6 +3,7 @@ package com.novinitygames.clientid.packet;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import com.novinitygames.clientid.ClientID;
+import com.novinitygames.clientid.utils.CheckUtils;
 import com.novinitygames.clientid.utils.ReadHelpers;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -68,6 +69,7 @@ public class PackListPacketC2S {
                 ClientID.getInstance().getLogger().info("- " + pack);
             }
         }
+        if (CheckUtils.canPlayerBypass(player)) return;
 
         if (!bannedPacks.isEmpty()) {
             StringBuilder kickMessage = new StringBuilder(ChatColor.RED + "Failed ClientID check.\nOne of your resource packs was deemed to be malicious.\n\n");

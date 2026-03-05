@@ -3,6 +3,7 @@ package com.novinitygames.clientid.listeners;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import com.novinitygames.clientid.ClientID;
+import com.novinitygames.clientid.utils.CheckUtils;
 import com.novinitygames.clientid.utils.GeyserUtils;
 import com.novinitygames.clientid.utils.UpdateChecker;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -27,8 +28,8 @@ public class PlayerConnectionListeners implements Listener {
             ClientID.getInstance().getLogger().info(event.getPlayer().getName() + " is a Bedrock player. Ignoring.");
         }
         if (
-                (ClientID.getInstance().getConfig().getStringList("playerBypass").contains(player.getName()) && !ClientID.getInstance().getConfig().getBoolean("reversePlayerBypass", false))
-                || (!ClientID.getInstance().getConfig().getStringList("playerBypass").contains(player.getName()) && ClientID.getInstance().getConfig().getBoolean("reversePlayerBypass", false))
+                (CheckUtils.canPlayerBypass(player) && !ClientID.getInstance().getConfig().getBoolean("reversePlayerBypass", false))
+                || (!CheckUtils.canPlayerBypass(player) && ClientID.getInstance().getConfig().getBoolean("reversePlayerBypass", false))
                         || isGeyser) {
             ClientID.getInstance().confirmedPlayers.add(player);
             ClientID.getInstance().modConfirmation.put(player, true);
@@ -37,7 +38,7 @@ public class PlayerConnectionListeners implements Listener {
         if (!ClientID.getInstance().modConfirmation.containsKey(player)) {
             ClientID.getInstance().modConfirmation.put(player, false);
             if (ClientID.getInstance().getConfig().getBoolean("requireMod", true)) {
-                ClientID.getInstance().scheduler.async().runDelayed(() -> {
+                ClientID.getInstance().scheduler.global().runDelayed(() -> {
                     if (!ClientID.getInstance().modConfirmation.containsKey(player)
                             || !ClientID.getInstance().enabledPacks.containsKey(player)
                             || !ClientID.getInstance().installedMods.containsKey(player)
@@ -48,8 +49,8 @@ public class PlayerConnectionListeners implements Listener {
                 }, 5*20L);
             }
 
-            for (int i = 0; i < 100; i++) {
-                ClientID.getInstance().scheduler.async().runDelayed(() -> {
+            for (int i = 1; i < 100; i++) {
+                ClientID.getInstance().scheduler.global().runDelayed(() -> {
                     if (ClientID.getInstance().modConfirmation.containsKey(player)
                             && ClientID.getInstance().enabledPacks.containsKey(player)
                             && ClientID.getInstance().installedMods.containsKey(player)

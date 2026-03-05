@@ -42,6 +42,7 @@ public class ModListPacketC2S {
         ClientID.getInstance().installedMods.put(player, Arrays.stream(mods).toList());
 
         ArrayList<String> bannedMods = CheckUtils.CheckIllicitMods(player);
+        if (CheckUtils.canPlayerBypass(player)) return;
 
         if (!bannedMods.isEmpty()) {
             StringBuilder kickMessage = new StringBuilder(ChatColor.RED + "Failed ClientID check.\nThe following mods must be removed to play:\n\n");

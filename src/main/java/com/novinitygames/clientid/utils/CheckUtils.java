@@ -4,6 +4,7 @@ import com.novinitygames.clientid.ClientID;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 public class CheckUtils {
@@ -48,5 +49,15 @@ public class CheckUtils {
         }
 
         return bannedMods;
+    }
+
+    public static boolean canPlayerBypass(Player player) {
+        List<String> bypassedPlayers = ClientID.getInstance().getConfig().getStringList("playerBypass");
+        for (String s : bypassedPlayers) {
+            if (player.getName().equalsIgnoreCase(s)) {
+                return true;
+            }
+        }
+        return  false;
     }
 }
