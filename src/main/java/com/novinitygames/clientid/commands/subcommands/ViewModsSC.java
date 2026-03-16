@@ -41,6 +41,11 @@ public class ViewModsSC extends SubCommand {
             return;
         }
 
+        if (!ClientID.getInstance().installedMods.containsKey(player)) {
+            sender.sendMessage(ChatColor.RED + "No mod list received for " + player.getName());
+            return;
+        }
+
         String s = ChatColor.GOLD + player.getName() + "'s mod list:\n" +
                 ChatColor.GREEN + String.join(", ", ClientID.getInstance().installedMods.get(player));
         sender.sendMessage(s);

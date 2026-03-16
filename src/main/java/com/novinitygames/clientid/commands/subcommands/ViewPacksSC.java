@@ -41,6 +41,11 @@ public class ViewPacksSC extends SubCommand {
             return;
         }
 
+        if (!ClientID.getInstance().enabledPacks.containsKey(player)) {
+            sender.sendMessage(ChatColor.RED + "No pack list received for " + player.getName());
+            return;
+        }
+
         String s = ChatColor.GOLD + player.getName() + "'s pack list:\n" +
                 ChatColor.GREEN + String.join(", ", ClientID.getInstance().enabledPacks.get(player));
         sender.sendMessage(s);
