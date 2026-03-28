@@ -27,10 +27,7 @@ public class PlayerConnectionListeners implements Listener {
         if (isGeyser) {
             ClientID.getInstance().getLogger().info(event.getPlayer().getName() + " is a Bedrock player. Ignoring.");
         }
-        if (
-                (CheckUtils.canPlayerBypass(player) && !ClientID.getInstance().getConfig().getBoolean("reversePlayerBypass", false))
-                || (!CheckUtils.canPlayerBypass(player) && ClientID.getInstance().getConfig().getBoolean("reversePlayerBypass", false))
-                        || isGeyser) {
+        if (CheckUtils.canPlayerBypass(player) || isGeyser) {
             ClientID.getInstance().confirmedPlayers.add(player);
             ClientID.getInstance().modConfirmation.put(player, true);
             return;

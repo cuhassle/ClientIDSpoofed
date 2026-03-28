@@ -53,11 +53,12 @@ public class CheckUtils {
 
     public static boolean canPlayerBypass(Player player) {
         List<String> bypassedPlayers = ClientID.getInstance().getConfig().getStringList("playerBypass");
+        boolean reverse = ClientID.getInstance().getConfig().getBoolean("reversePlayerBypass", false);
         for (String s : bypassedPlayers) {
             if (player.getName().equalsIgnoreCase(s)) {
-                return true;
+                return !reverse;
             }
         }
-        return  false;
+        return reverse;
     }
 }
