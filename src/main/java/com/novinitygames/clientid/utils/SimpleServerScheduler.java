@@ -13,7 +13,7 @@ public class SimpleServerScheduler {
 
     public static void init() {
         ServerTickEvents.END_SERVER_TICK.register(server -> {
-            long tick = server.getTicks();
+            long tick = server.getTickCount();
             List<Runnable> runnables = tasks.remove(tick);
             if (runnables != null) {
                 for (Runnable runnable : runnables) {
@@ -24,7 +24,7 @@ public class SimpleServerScheduler {
     }
 
     public static void schedule(MinecraftServer server, Runnable task, long delayTicks) {
-        long targetTick = server.getTicks() + Math.max(0, delayTicks);
+        long targetTick = server.getTickCount() + Math.max(0, delayTicks);
         tasks.computeIfAbsent(targetTick, k -> new ArrayList<>()).add(task);
     }
 }

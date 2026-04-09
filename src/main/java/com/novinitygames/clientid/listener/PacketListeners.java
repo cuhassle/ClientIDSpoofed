@@ -1,15 +1,15 @@
 package com.novinitygames.clientid.listener;
 
 import com.novinitygames.clientid.ClientID;
-import com.novinitygames.clientid.client.records.*;
+import com.novinitygames.clientid.records.*;
 import com.novinitygames.clientid.config.ConfigManager;
 import com.novinitygames.clientid.utils.CheckUtils;
 import com.novinitygames.clientid.utils.Version;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,12 +18,12 @@ import java.util.Arrays;
 public class PacketListeners {
     public static void Register() {
         ServerPlayNetworking.registerGlobalReceiver(ModCheckC2SPayload.ID, (payload, ctx) -> {
-            ServerPlayerEntity player = ctx.player();
+            ServerPlayer player = ctx.player();
             ClientID.modConfirmed.put(player, true);
         });
 
         ServerPlayNetworking.registerGlobalReceiver(ModListC2SPayload.ID, (payload, ctx) -> {
-            ServerPlayerEntity player = ctx.player();
+            ServerPlayer player = ctx.player();
 
             String s = payload.list();
 
@@ -51,12 +51,12 @@ public class PacketListeners {
                     kickMessage.append(mod).append("\n");
                 }
                 kickMessage.append("\nIf this is believed to be an error, please contact the server owner.");
-                player.networkHandler.disconnect(Text.literal(kickMessage.toString()).withColor(0xFF5555));
+                player.connection.disconnect(Component.literal(kickMessage.toString()).withColor(0xFF5555));
             }
         });
 
         ServerPlayNetworking.registerGlobalReceiver(PackListC2SPayload.ID, (payload, ctx) -> {
-            ServerPlayerEntity player = ctx.player();
+            ServerPlayer player = ctx.player();
 
             String s = payload.list();
 
@@ -108,12 +108,12 @@ public class PacketListeners {
                 StringBuilder kickMessage = new StringBuilder("Failed ClientID check.\nOne of your resource packs was deemed to be malicious.\n\n");
                 kickMessage.append("\nIf this is believed to be an error, please contact the server owner.");
 
-                player.networkHandler.disconnect(Text.literal(kickMessage.toString()).withColor(0xFF5555));
+                player.connection.disconnect(Component.literal(kickMessage.toString()).withColor(0xFF5555));
             }
         });
 
         ServerPlayNetworking.registerGlobalReceiver(VersionC2SPayload.ID, (payload, ctx) -> {
-            ServerPlayerEntity player = ctx.player();
+            ServerPlayer player = ctx.player();
 
             String s = payload.version();
             try {
@@ -123,13 +123,13 @@ public class PacketListeners {
                 }
 
                 if (ClientID.clientMinimumVersion.compareTo(version) > 0) {
-                    player.networkHandler.disconnect(Text.literal("The minimum version of ClientID required to join this server is "
+                    player.connection.disconnect(Component.literal("The minimum version of ClientID required to join this server is "
                             + ClientID.clientMinimumVersion.toString()).withColor(0xFF5555));
                 } else {
                     ClientID.versionConfirmed.put(player, true);
                 }
             } catch (Exception e) {
-                player.networkHandler.disconnect(Text.literal("Failed to receive ClientID version.").withColor(0xFF5555));
+                player.connection.disconnect(Component.literal("Failed to receive ClientID version.").withColor(0xFF5555));
             }
         });
     }

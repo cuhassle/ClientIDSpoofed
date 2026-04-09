@@ -1,27 +1,30 @@
 package com.novinitygames.clientid.client.watcher;
 
+import com.mojang.authlib.minecraft.client.MinecraftClient;
 import com.novinitygames.clientid.ClientID;
 import com.novinitygames.clientid.client.ClientIDClient;
-import com.novinitygames.clientid.client.records.PackListC2SPayload;
+import com.novinitygames.clientid.records.PackListC2SPayload;
 import com.novinitygames.clientid.client.util.ListerUtil;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.ResourcePackProfile;
-import net.minecraft.resource.ResourceType;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.packs.PackResources;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackSource;
+import net.minecraft.server.packs.resources.ResourceManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ResourcePackWatcher implements SimpleSynchronousResourceReloadListener {
-    private final Identifier id = Identifier.of(ClientID.MOD_ID, "resource_pack_watcher");
+    private final Identifier id = Identifier.fromNamespaceAndPath(ClientID.MOD_ID, "resource_pack_watcher");
     private List<String> lastEnabled = new ArrayList<>();
 
     public ResourcePackWatcher() {
-        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(this);
+        ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(this);
         updateLastEnabled();
     }
 
@@ -31,13 +34,10 @@ public class ResourcePackWatcher implements SimpleSynchronousResourceReloadListe
     }
 
     @Override
-    public void reload(ResourceManager manager) {
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client == null) return;
-
+    public void onResourceManagerReload(ResourceManager manager) {
         ArrayList<String> current = new ArrayList<>();
-        for (ResourcePackProfile profile : client.getResourcePackManager().getEnabledProfiles()) {
-            current.add(profile.getDisplayName().toString());
+        for (PackResources profile : manager.listPacks().toList()) {
+            current.add(profile.packId());
         }
 
         List<String> added = new ArrayList<>(current);
@@ -58,11 +58,12 @@ public class ResourcePackWatcher implements SimpleSynchronousResourceReloadListe
     }
 
     private void updateLastEnabled() {
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client == null) return;
+        Minecraft client = Minecraft.getInstance();
+
         ArrayList<String> list = new ArrayList<>();
-        for (ResourcePackProfile profile : client.getResourcePackManager().getEnabledProfiles()) {
-            list.add(profile.getDisplayName().toString());
+        for (Pack profile : client.getResourcePackRepository().getSelectedPacks()) {
+            if (profile.getTitle().getString().startsWith("Fabric Mod \"")) continue;
+            list.add(profile.getTitle().getString());
         }
         lastEnabled = list;
     }

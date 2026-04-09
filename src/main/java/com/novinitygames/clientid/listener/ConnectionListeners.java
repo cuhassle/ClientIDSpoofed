@@ -1,7 +1,7 @@
 package com.novinitygames.clientid.listener;
 
 import com.novinitygames.clientid.ClientID;
-import com.novinitygames.clientid.client.records.ChartsS2CPayload;
+import com.novinitygames.clientid.records.ChartsS2CPayload;
 import com.novinitygames.clientid.config.ConfigManager;
 import com.novinitygames.clientid.utils.SimpleServerScheduler;
 import com.novinitygames.clientid.utils.UpdateChecker;
@@ -10,17 +10,18 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.server.level.ServerPlayer;
 
 @Environment(EnvType.SERVER)
 public class ConnectionListeners {
     public static void Register() {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-            ServerPlayerEntity player = handler.getPlayer();
-            if ((ConfigManager.CONFIG.playerBypass.contains(player.getName().getLiteralString()) && !ConfigManager.CONFIG.reversePlayerBypass)
-                || (!ConfigManager.CONFIG.playerBypass.contains(player.getName().getLiteralString()) && ConfigManager.CONFIG.reversePlayerBypass)) {
+            ServerPlayer player = handler.getPlayer();
+            if ((ConfigManager.CONFIG.playerBypass.contains(player.getName().getString()) && !ConfigManager.CONFIG.reversePlayerBypass)
+                || (!ConfigManager.CONFIG.playerBypass.contains(player.getName().getString()) && ConfigManager.CONFIG.reversePlayerBypass)) {
                 ClientID.accepted.add(player);
                 return;
             }
@@ -35,7 +36,7 @@ public class ConnectionListeners {
                             && !ClientID.accepted.contains(player)) {
                         ClientID.accepted.add(player);
                     } else {
-                        player.networkHandler.disconnect(Text.literal("Failed ClientID check.\nThis happened because of one of the following reasons:\n\n- You don't have the ClientID mod installed\n- Your latenyc was too high to callback in a timely fashion\n- You are using an unsupported version of the mod\n\nIf this is believed to be an error, please contact the server owner.")
+                        player.connection.disconnect(Component.literal("Failed ClientID check.\nThis happened because of one of the following reasons:\n\n- You don't have the ClientID mod installed\n- Your latenyc was too high to callback in a timely fashion\n- You are using an unsupported version of the mod\n\nIf this is believed to be an error, please contact the server owner.")
                                 .withColor(0xFF5555));
                     }
                 }, 5*20L);
@@ -58,16 +59,17 @@ public class ConnectionListeners {
                 }, (long)i);
             }
             if (UpdateChecker.updateAvailable && Permissions.check(player, "clientid.updatecheck") && !UpdateChecker.playersNotified.contains(player)) {
-                Text linkText = Text.literal("[ClientID] A new update is available! Get it at https://modrinth.com/plugin/client-id")
+                Style style = Style.EMPTY.withClickEvent(() -> ClickEvent.Action.OPEN_URL);
+                Component linkText = Component.literal("[ClientID] A new update is available! Get it at https://modrinth.com/plugin/client-id")
                         .withColor(0x00FF00)
-                        .styled(style -> style.withClickEvent(() -> ClickEvent.Action.OPEN_URL));
-                player.sendMessage(linkText, false);
+                        .withStyle(style);
+                player.sendSystemMessage(linkText, false);
                 UpdateChecker.playersNotified.add(player);
             }
         });
 
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
-            ServerPlayerEntity player = handler.getPlayer();
+            ServerPlayer player = handler.getPlayer();
 
             ClientID.accepted.remove(player);
             ClientID.packLists.remove(player);

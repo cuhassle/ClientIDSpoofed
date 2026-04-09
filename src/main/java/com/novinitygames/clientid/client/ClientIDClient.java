@@ -1,13 +1,12 @@
 package com.novinitygames.clientid.client;
 
-import com.novinitygames.clientid.client.records.*;
+import com.novinitygames.clientid.records.*;
 import com.novinitygames.clientid.client.util.ListerUtil;
 import com.novinitygames.clientid.client.watcher.ResourcePackWatcher;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class ClientIDClient implements ClientModInitializer {
             isConnectedToServer = true;
 
             // Initial installation confirmation
-            ModCheckC2SPayload payload = new ModCheckC2SPayload(MinecraftClient.getInstance().getGameProfile().id().toString());
+            ModCheckC2SPayload payload = new ModCheckC2SPayload(client.getGameProfile().id().toString());
             ClientPlayNetworking.send(payload);
 
             // Mods

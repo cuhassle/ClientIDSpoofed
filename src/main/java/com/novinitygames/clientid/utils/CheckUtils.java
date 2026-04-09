@@ -2,12 +2,12 @@ package com.novinitygames.clientid.utils;
 
 import com.novinitygames.clientid.ClientID;
 import com.novinitygames.clientid.config.ConfigManager;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 
 import java.util.ArrayList;
 
 public class CheckUtils {
-    public static ArrayList<String> CheckIllicitMods(ServerPlayerEntity player) {
+    public static ArrayList<String> CheckIllicitMods(ServerPlayer player) {
         ArrayList<String> bannedMods = new ArrayList<>();
 
         ArrayList<String> keywordBans = new ArrayList<>() {{

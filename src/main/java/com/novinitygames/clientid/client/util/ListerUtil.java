@@ -1,12 +1,13 @@
 package com.novinitygames.clientid.client.util;
 
+import com.mojang.authlib.minecraft.client.MinecraftClient;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.resource.ResourcePackManager;
-import net.minecraft.resource.ResourcePackProfile;
-import net.minecraft.text.Text;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackRepository;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,21 +25,16 @@ public class ListerUtil {
     }
 
     public static ArrayList<String> getEnabledPacks() {
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client == null) return null;
+        Minecraft client = Minecraft.getInstance();
 
-        ResourcePackManager rpm = client.getResourcePackManager();
-        Collection<ResourcePackProfile> enabled = rpm.getEnabledProfiles();
+        PackRepository rpm = client.getResourcePackRepository();
+        Collection<Pack> enabled = rpm.getSelectedPacks();
 
         ArrayList<String> list = new ArrayList<>();
 
-        for (ResourcePackProfile profile : enabled) {
-            Text display = profile.getDisplayName();
-            String name = display == null ? "<unknown>" : display.getLiteralString();
-            if (name == null) {
-                continue;
-            }
-            list.add(name);
+        for (Pack profile : enabled) {
+            Component display = profile.getTitle();
+            list.add(display.getString());
         }
 
         return list;

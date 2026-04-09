@@ -8,15 +8,14 @@ import com.novinitygames.clientid.ClientID;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.server.level.ServerPlayer;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,7 @@ public class UpdateChecker {
     private static final String API_URL = "https://api.modrinth.com/v2";
 
     public static boolean updateAvailable = false;
-    public static List<ServerPlayerEntity> playersNotified = new ArrayList<>();
+    public static List<ServerPlayer> playersNotified = new ArrayList<>();
 
     public static void checkForUpdates() {
         try {
@@ -74,9 +73,12 @@ public class UpdateChecker {
 
                     if (newVersion.compareTo(currentVersion) > 0) {
                         updateAvailable = true;
-                        Text linkText = Text.literal("[ClientID] A new update is available! Get it at https://modrinth.com/plugin/client-id")
+
+                        Style style = Style.EMPTY.withClickEvent(() -> ClickEvent.Action.OPEN_URL);
+                        Component linkText = Component.literal("[ClientID] A new update is available! Get it at https://modrinth.com/plugin/client-id")
                                 .withColor(0x00FF00)
-                                .styled(style -> style.withClickEvent(() -> ClickEvent.Action.OPEN_URL));
+                                .withStyle(style);
+
                         ClientID.LOGGER.info(linkText.toString());
                     } else {
                         ClientID.LOGGER.info("No updates available.");
