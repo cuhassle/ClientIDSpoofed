@@ -1,6 +1,5 @@
 package com.novinitygames.clientid.client.watcher;
 
-import com.mojang.authlib.minecraft.client.MinecraftClient;
 import com.novinitygames.clientid.ClientID;
 import com.novinitygames.clientid.client.ClientIDClient;
 import com.novinitygames.clientid.records.PackListC2SPayload;
@@ -13,7 +12,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
-import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 import java.util.ArrayList;
