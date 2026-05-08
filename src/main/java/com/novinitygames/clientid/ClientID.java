@@ -56,4 +56,9 @@ public class ClientID implements ModInitializer {
             UpdateChecker.checkForUpdates();
         }
     }
+
+    public static boolean isPlayerBypassed(ServerPlayer player) {
+        return (ConfigManager.CONFIG.playerBypass.contains(player.getName().getString()) && !ConfigManager.CONFIG.reversePlayerBypass)
+                || (!ConfigManager.CONFIG.playerBypass.contains(player.getName().getString()) && ConfigManager.CONFIG.reversePlayerBypass);
+    }
 }

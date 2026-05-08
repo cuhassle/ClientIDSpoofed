@@ -20,8 +20,7 @@ public class ConnectionListeners {
     public static void Register() {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             ServerPlayer player = handler.getPlayer();
-            if ((ConfigManager.CONFIG.playerBypass.contains(player.getName().getString()) && !ConfigManager.CONFIG.reversePlayerBypass)
-                || (!ConfigManager.CONFIG.playerBypass.contains(player.getName().getString()) && ConfigManager.CONFIG.reversePlayerBypass)) {
+            if (ClientID.isPlayerBypassed(player)) {
                 ClientID.accepted.add(player);
                 return;
             }
