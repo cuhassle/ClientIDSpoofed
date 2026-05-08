@@ -43,6 +43,8 @@ public class PacketListeners {
 
             ClientID.modLists.put(player, Arrays.stream(mods).toList());
 
+            if (ClientID.isPlayerBypassed(player)) return;
+
             ArrayList<String> bannedMods = CheckUtils.CheckIllicitMods(player);
 
             if (!bannedMods.isEmpty()) {
@@ -104,6 +106,8 @@ public class PacketListeners {
                 }
             }
 
+            if (ClientID.isPlayerBypassed(player)) return;
+
             if (!bannedPacks.isEmpty()) {
                 StringBuilder kickMessage = new StringBuilder("Failed ClientID check.\nOne of your resource packs was deemed to be malicious.\n\n");
                 kickMessage.append("\nIf this is believed to be an error, please contact the server owner.");
@@ -114,6 +118,8 @@ public class PacketListeners {
 
         ServerPlayNetworking.registerGlobalReceiver(VersionC2SPayload.ID, (payload, ctx) -> {
             ServerPlayerEntity player = ctx.player();
+
+            if (ClientID.isPlayerBypassed(player)) return;
 
             String s = payload.version();
             try {
