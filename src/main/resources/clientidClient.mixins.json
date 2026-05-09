@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.novinitygames.clientid.client.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "DebugHudMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
