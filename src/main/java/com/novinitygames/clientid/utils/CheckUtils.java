@@ -41,9 +41,9 @@ public class CheckUtils {
             }
             if (illicit) {
                 bannedMods.add(lowercase);
-                ClientID.LOGGER.error("- " + mod);
+                if (ConfigManager.CONFIG.logModsOnJoin) ClientID.LOGGER.error("- " + mod);
             } else {
-                ClientID.LOGGER.info("- " + mod);
+                if (ConfigManager.CONFIG.logModsOnJoin) ClientID.LOGGER.info("- " + mod);
             }
         }
 
