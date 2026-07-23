@@ -83,7 +83,7 @@ public class PacketListeners {
                 }
             }};
 
-            ClientID.LOGGER.info(player.getName() + "'s Enabled Packs:");
+            if (ConfigManager.CONFIG.logModsOnJoin) ClientID.LOGGER.info(player.getName() + "'s Enabled Packs:");
             for (String pack : ClientID.packLists.get(player)) {
                 String lowercase = pack.toLowerCase();
                 boolean illicit = false;
@@ -100,9 +100,9 @@ public class PacketListeners {
                 }
                 if (illicit) {
                     bannedPacks.add(lowercase);
-                    ClientID.LOGGER.error("- " + pack);
+                    if (ConfigManager.CONFIG.logModsOnJoin) ClientID.LOGGER.error("- " + pack);
                 } else {
-                    ClientID.LOGGER.info("- " + pack);
+                    if (ConfigManager.CONFIG.logModsOnJoin) ClientID.LOGGER.info("- " + pack);
                 }
             }
 

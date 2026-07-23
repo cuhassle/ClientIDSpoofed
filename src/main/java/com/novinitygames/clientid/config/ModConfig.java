@@ -21,4 +21,5 @@ public class ModConfig {
     }};
     public boolean reversePlayerBypass = false;
     public boolean disablePieChart = false;
+    public boolean logModsOnJoin = true;
 }
