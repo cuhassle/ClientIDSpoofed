@@ -1,6 +1,6 @@
-package com.novinitygames.clientid.listeners;
+package dev.novinity.clientid.listeners;
 
-import com.novinitygames.clientid.ClientID;
+import dev.novinity.clientid.ClientID;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -27,3 +27,6 @@ reversePlayerBypass: false
 
 # Whether the pie chart should be disabled for players when they join
 disablePieChart: false
+
+# Whether to print out the player's mods and resource packs when they join
+logModsOnJoin: true

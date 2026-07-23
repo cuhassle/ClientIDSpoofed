@@ -1,11 +1,11 @@
-package com.novinitygames.clientid.utils;
+package dev.novinity.clientid.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.novinitygames.clientid.ClientID;
-import com.novinitygames.clientid.Properties;
+import dev.novinity.clientid.ClientID;
+import dev.novinity.clientid.Properties;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

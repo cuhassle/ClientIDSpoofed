@@ -1,11 +1,11 @@
-package com.novinitygames.clientid.packet;
+package dev.novinity.clientid.packet;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
-import com.novinitygames.clientid.ClientID;
-import com.novinitygames.clientid.utils.CheckUtils;
-import com.novinitygames.clientid.utils.ReadHelpers;
-import com.novinitygames.clientid.utils.Version;
+import dev.novinity.clientid.ClientID;
+import dev.novinity.clientid.utils.CheckUtils;
+import dev.novinity.clientid.utils.ReadHelpers;
+import dev.novinity.clientid.utils.Version;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 

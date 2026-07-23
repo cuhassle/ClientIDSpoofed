@@ -1,14 +1,13 @@
-package com.novinitygames.clientid.listeners;
+package dev.novinity.clientid.listeners;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import com.novinitygames.clientid.ClientID;
-import com.novinitygames.clientid.utils.CheckUtils;
-import com.novinitygames.clientid.utils.GeyserUtils;
-import com.novinitygames.clientid.utils.UpdateChecker;
+import dev.novinity.clientid.ClientID;
+import dev.novinity.clientid.utils.CheckUtils;
+import dev.novinity.clientid.utils.GeyserUtils;
+import dev.novinity.clientid.utils.UpdateChecker;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,11 +20,12 @@ public class PlayerConnectionListeners implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         boolean isGeyser = false;
+        boolean shouldLog = ClientID.getInstance().getConfig().getBoolean("logModsOnJoin", true);
         if (ClientID.getInstance().getServer().getPluginManager().getPlugin("Geyser-Spigot") != null) {
             isGeyser = GeyserUtils.isGeyserPlayer(player);
         }
         if (isGeyser) {
-            ClientID.getInstance().getLogger().info(event.getPlayer().getName() + " is a Bedrock player. Ignoring.");
+            if (shouldLog) ClientID.getInstance().getLogger().info(event.getPlayer().getName() + " is a Bedrock player. Ignoring.");
         }
         if (CheckUtils.canPlayerBypass(player) || isGeyser) {
             ClientID.getInstance().confirmedPlayers.add(player);

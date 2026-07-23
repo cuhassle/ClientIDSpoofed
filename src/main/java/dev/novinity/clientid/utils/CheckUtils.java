@@ -1,6 +1,6 @@
-package com.novinitygames.clientid.utils;
+package dev.novinity.clientid.utils;
 
-import com.novinitygames.clientid.ClientID;
+import dev.novinity.clientid.ClientID;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -26,6 +26,9 @@ public class CheckUtils {
                 add(s.toLowerCase());
             }
         }};
+
+        boolean shouldLog = ClientID.getInstance().getConfig().getBoolean("logModsOnJoin", true);
+
         for (String mod : ClientID.getInstance().installedMods.get(player)) {
             String lowercase = mod.toLowerCase();
             boolean illicit = false;
@@ -42,9 +45,9 @@ public class CheckUtils {
             }
             if (illicit) {
                 bannedMods.add(lowercase);
-                ClientID.getInstance().getLogger().log(Level.SEVERE, "- " + mod);
+                if (shouldLog) ClientID.getInstance().getLogger().log(Level.SEVERE, "- " + mod);
             } else {
-                ClientID.getInstance().getLogger().info("- " + mod);
+                if (shouldLog) ClientID.getInstance().getLogger().info("- " + mod);
             }
         }
 

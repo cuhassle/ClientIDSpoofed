@@ -1,11 +1,11 @@
-package com.novinitygames.clientid.commands;
+package dev.novinity.clientid.commands;
 
 
-import com.novinitygames.clientid.ClientID;
-import com.novinitygames.clientid.Properties;
-import com.novinitygames.clientid.commands.subcommands.ReloadSC;
-import com.novinitygames.clientid.commands.subcommands.ViewModsSC;
-import com.novinitygames.clientid.commands.subcommands.ViewPacksSC;
+import dev.novinity.clientid.ClientID;
+import dev.novinity.clientid.Properties;
+import dev.novinity.clientid.commands.subcommands.ReloadSC;
+import dev.novinity.clientid.commands.subcommands.ViewModsSC;
+import dev.novinity.clientid.commands.subcommands.ViewPacksSC;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

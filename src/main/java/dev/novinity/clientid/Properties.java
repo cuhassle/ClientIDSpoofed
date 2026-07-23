@@ -1,4 +1,4 @@
-package com.novinitygames.clientid;
+package dev.novinity.clientid;
 
 public class Properties {
     public static String getProperty(String tag) {

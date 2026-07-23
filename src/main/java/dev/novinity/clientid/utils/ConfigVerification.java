@@ -1,6 +1,6 @@
-package com.novinitygames.clientid.utils;
+package dev.novinity.clientid.utils;
 
-import com.novinitygames.clientid.ClientID;
+import dev.novinity.clientid.ClientID;
 
 public class ConfigVerification {
     public static void VerifyConfig() {

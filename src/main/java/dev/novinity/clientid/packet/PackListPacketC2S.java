@@ -1,10 +1,10 @@
-package com.novinitygames.clientid.packet;
+package dev.novinity.clientid.packet;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
-import com.novinitygames.clientid.ClientID;
-import com.novinitygames.clientid.utils.CheckUtils;
-import com.novinitygames.clientid.utils.ReadHelpers;
+import dev.novinity.clientid.ClientID;
+import dev.novinity.clientid.utils.CheckUtils;
+import dev.novinity.clientid.utils.ReadHelpers;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -47,7 +47,9 @@ public class PackListPacketC2S {
             }
         }};
 
-        ClientID.getInstance().getLogger().info(player.getName() + "'s Enabled Packs:");
+        boolean shouldLog = ClientID.getInstance().getConfig().getBoolean("logModsOnJoin", true);
+
+        if (shouldLog) ClientID.getInstance().getLogger().info(player.getName() + "'s Enabled Packs:");
         for (String pack : ClientID.getInstance().enabledPacks.get(player)) {
             String lowercase = pack.toLowerCase();
             boolean illicit = false;
@@ -64,9 +66,9 @@ public class PackListPacketC2S {
             }
             if (illicit) {
                 bannedPacks.add(lowercase);
-                ClientID.getInstance().getLogger().log(Level.SEVERE, "- " + pack);
+                if (shouldLog) ClientID.getInstance().getLogger().log(Level.SEVERE, "- " + pack);
             } else {
-                ClientID.getInstance().getLogger().info("- " + pack);
+                if (shouldLog) ClientID.getInstance().getLogger().info("- " + pack);
             }
         }
         if (CheckUtils.canPlayerBypass(player)) return;

@@ -1,7 +1,7 @@
-package com.novinitygames.clientid.commands.subcommands;
+package dev.novinity.clientid.commands.subcommands;
 
-import com.novinitygames.clientid.ClientID;
-import com.novinitygames.clientid.commands.SubCommand;
+import dev.novinity.clientid.ClientID;
+import dev.novinity.clientid.commands.SubCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;

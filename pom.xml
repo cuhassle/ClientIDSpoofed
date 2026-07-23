@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.novinitygames</groupId>
+    <groupId>dev.novinity</groupId>
     <artifactId>ClientID-Spigot</artifactId>
-    <version>1.1.7</version>
+    <version>1.1.8</version>
     <packaging>jar</packaging>
 
     <name>ClientID</name>
@@ -36,7 +36,7 @@
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>com.novinitygames.clientid</shadedPattern>
+                            <shadedPattern>dev.novinity.clientid</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

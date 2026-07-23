@@ -1,6 +1,6 @@
 name: ClientID
-version: '1.1.7'
-main: com.novinitygames.clientid.ClientID
+version: '1.1.8'
+main: dev.novinity.clientid.ClientID
 api-version: '1.21'
 load: STARTUP
 authors: [ Novinity ]

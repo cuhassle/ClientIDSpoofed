@@ -1,4 +1,4 @@
-package com.novinitygames.clientid.utils;
+package dev.novinity.clientid.utils;
 
 import com.google.common.io.ByteArrayDataInput;
 

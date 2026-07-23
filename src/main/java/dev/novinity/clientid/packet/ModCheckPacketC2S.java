@@ -1,9 +1,9 @@
-package com.novinitygames.clientid.packet;
+package dev.novinity.clientid.packet;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
-import com.novinitygames.clientid.ClientID;
-import com.novinitygames.clientid.utils.ReadHelpers;
+import dev.novinity.clientid.ClientID;
+import dev.novinity.clientid.utils.ReadHelpers;
 import org.bukkit.entity.Player;
 
 import java.nio.charset.StandardCharsets;
@@ -21,7 +21,9 @@ public class ModCheckPacketC2S {
         in.readFully(bytes);
         String s = new String(bytes, StandardCharsets.UTF_8);
 
-        ClientID.getInstance().getLogger().info("Received mod check from player " + player.getName() + ": " + s);
+        boolean shouldLog = ClientID.getInstance().getConfig().getBoolean("logModsOnJoin", true);
+
+        if (shouldLog) ClientID.getInstance().getLogger().info("Received mod check from player " + player.getName() + ": " + s);
         ClientID.getInstance().modConfirmation.put(player, true);
     }
 }
