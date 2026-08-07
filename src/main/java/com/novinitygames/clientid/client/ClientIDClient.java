@@ -27,7 +27,7 @@ public class ClientIDClient implements ClientModInitializer {
             ClientPlayNetworking.send(payload);
 
             // Mods
-            List<String> installedModsList = ListerUtil.getMods();
+            List<String> installedModsList = "";
             String installedMods = String.join(",", installedModsList);
 
             ModListC2SPayload payload2 = new ModListC2SPayload(installedMods);
