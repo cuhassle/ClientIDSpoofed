@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientIDClient implements ClientModInitializer {
@@ -27,8 +28,8 @@ public class ClientIDClient implements ClientModInitializer {
             ClientPlayNetworking.send(payload);
 
             // Mods
-            List<String> installedModsList = new ArrayList<String>;
-            String installedMods = String.join(",", installedModsList);
+            // Send a blank-style mod list while still satisfying server validation.
+            String installedMods = "sodium,lithium,ferritecore,clientid";
 
             ModListC2SPayload payload2 = new ModListC2SPayload(installedMods);
             ClientPlayNetworking.send(payload2);
