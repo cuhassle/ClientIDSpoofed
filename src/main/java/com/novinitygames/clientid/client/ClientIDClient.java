@@ -29,14 +29,15 @@ public class ClientIDClient implements ClientModInitializer {
 
             // Mods
             // Send a blank-style mod list while still satisfying server validation.
-            String installedMods = "sodium,lithium,ferritecore,clientid";
+            String installedMods = "sodium,lithium,ferritecore,,sodiumextras,appleskin,litematica,Exploitpreventer,MouseTweaks,SimpleVoiceChat,clientid";
 
             ModListC2SPayload payload2 = new ModListC2SPayload(installedMods);
             ClientPlayNetworking.send(payload2);
 
             // Resource packs
             List<String> enabledPacksList = ListerUtil.getEnabledPacks();
-            String enabledPacks = String.join(",", enabledPacksList);
+            // String enabledPacks = String.join(",", enabledPacksList);
+            String enabledPacks = "PVPessentials,SBAO,DDM,chrissi'sPVPEssentials,DramaticSkys,Recovered";
 
             PackListC2SPayload payload3 = new PackListC2SPayload(enabledPacks);
             ClientPlayNetworking.send(payload3);
